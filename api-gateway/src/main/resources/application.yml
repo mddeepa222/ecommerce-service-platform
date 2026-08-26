@@ -1,0 +1,125 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          enabled: true
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/api/auth/**
+
+            - id: auth-service-admin
+              uri: lb://auth-service
+              predicates:
+                - Path=/api/admin/**
+
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/api/users/**
+
+            - id: product-service
+              uri: lb://product-service
+              predicates:
+                - Path=/api/products/**, /api/categories/**
+
+            - id: inventory-service
+              uri: lb://inventory-service
+              predicates:
+                - Path=/api/inventory/**
+
+            - id: cart-service
+              uri: lb://cart-service
+              predicates:
+                - Path=/api/cart/**
+
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/orders/**
+
+            - id: payment-service
+              uri: lb://payment-service
+              predicates:
+                - Path=/api/payments/**
+
+            - id: coupon-service
+              uri: lb://coupon-service
+              predicates:
+                - Path=/api/coupons/**
+
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/api/notifications/**
+
+#          - id: product-service
+#            uri: lb://product-service
+#            predicates:
+#              - Path=/api/products/**, /api/categories/**
+#
+#          - id: inventory-service
+#            uri: lb://inventory-service
+#            predicates:
+#              - Path=/api/inventory/**
+#
+#          - id: cart-service
+#            uri: lb://cart-service
+#            predicates:
+#              - Path=/api/cart/**
+#
+#          - id: order-service
+#            uri: lb://order-service
+#            predicates:
+#              - Path=/api/orders/**
+#
+#          - id: payment-service
+#            uri: lb://payment-service
+#            predicates:
+#              - Path=/api/payments/**
+#
+#          - id: coupon-service
+#            uri: lb://coupon-service
+#            predicates:
+#              - Path=/api/coupons/**
+#
+#          - id: notification-service
+#            uri: lb://notification-service
+#            predicates:
+#              - Path=/api/notifications/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: TXlTdXBlclNlY3JldEtleUZvckp3dEF1dGhlbnRpY2F0aW9uUHJvamVjdDEyMzQ1Njc4OQ==
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+  web:
+    base-path: /actuator
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway.server.webmvc: TRACE
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+    com.cartflow.apigateway: DEBUG

@@ -1,0 +1,39 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven build output (har service ka target folder ignore)
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Application secrets (kabhi commit mat karo)
+**/application-local.properties
+**/application-local.yml
+**/.env
+**/application-secrets.yml
+
+# IntelliJ — service level iml files (root .idea/ wale commit honge)
+**/src/**/*.iml
+
+.idea
